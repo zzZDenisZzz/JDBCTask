@@ -5,9 +5,10 @@ class UtilQuery {
     public UtilQuery() {
     }
 
-    static final String CREATE_TABLE = "CREATE TABLE product " +
-            "(id INTEGER NOT NULL, " +
+    static final String CREATE_TABLE = "CREATE TABLE PRODUCTS " +
+            "(id INT NOT NULL AUTO_INCREMENT, " +
             "name VARCHAR(30), " +
-            "price INTEGER NOT NULL, " +
+            "price INT NOT NULL, " +
             "PRIMARY KEY (id))";
+    static final String INSERT = "INSERT INTO PRODUCTS (name, price) VALUES (?, ?);";
 }
