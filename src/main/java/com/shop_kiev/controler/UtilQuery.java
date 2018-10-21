@@ -11,4 +11,7 @@ class UtilQuery {
             "price INT NOT NULL, " +
             "PRIMARY KEY (id))";
     static final String INSERT = "INSERT INTO PRODUCTS (name, price) VALUES (?, ?);";
+    static final String UPDATE = "UPDATE PRODUCTS SET name = ?, price = ? WHERE id = ?;";
+    static final String DELETE = "DELETE FROM PRODUCTS WHERE name = ?;";
+
 }

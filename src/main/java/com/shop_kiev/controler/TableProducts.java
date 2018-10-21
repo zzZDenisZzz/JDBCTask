@@ -10,7 +10,7 @@ public class TableProducts {
     public static void createTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.CREATE_TABLE)) {
             prStatement.executeUpdate();
-            System.out.println("Create Table !!!");
+            System.out.println("Create Table!!!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -31,4 +31,31 @@ public class TableProducts {
         }
     }
 
+    //Update
+    public static void updateToTable(Product oldProduct, Product newProduct) {
+        try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.UPDATE)) {
+            prStatement.setString(1, newProduct.getName());
+            prStatement.setInt(2, newProduct.getPrice());
+            prStatement.setInt(3, oldProduct.getId());
+
+            // execute update SQL prepared statement
+            prStatement.executeUpdate();
+            System.out.println("Update");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Delete record from table
+    public static void deleteFromTable(Product product) {
+        try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DELETE)) {
+            prStatement.setString(1, product.getName());
+
+            // execute delete SQL prepared statement
+            prStatement.executeUpdate();
+            System.out.println("Delete");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
