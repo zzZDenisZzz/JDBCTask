@@ -13,5 +13,6 @@ class UtilQuery {
     static final String INSERT = "INSERT INTO PRODUCTS (name, price) VALUES (?, ?);";
     static final String UPDATE = "UPDATE PRODUCTS SET name = ?, price = ? WHERE id = ?;";
     static final String DELETE = "DELETE FROM PRODUCTS WHERE name = ?;";
-
+    static final String SELECT = "SELECT * FROM PRODUCTS;";
+    static final String DROP = "DROP TABLE PRODUCTS;";
 }

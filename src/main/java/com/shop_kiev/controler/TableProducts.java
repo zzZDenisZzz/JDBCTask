@@ -3,6 +3,7 @@ package com.shop_kiev.controler;
 import com.shop_kiev.model.Product;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TableProducts {
@@ -54,6 +55,38 @@ public class TableProducts {
             // execute delete SQL prepared statement
             prStatement.executeUpdate();
             System.out.println("Delete");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Select records from table
+    public static void selectFromTable() {
+        try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.SELECT)) {
+
+            // execute select SQL prepared statement
+            ResultSet rs = prStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+
+                System.out.println("Id: " + id);
+                System.out.println("Name product: " + name);
+                System.out.println("Price: " + price);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Drop from table
+    public static void dropTable() {
+        try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DROP)) {
+            // execute delete SQL prepared statement
+            prStatement.executeUpdate();
+            System.out.println("Drop table!!!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
