@@ -14,6 +14,5 @@ public class Shop {
         selectFromTable();
         deleteFromTable(newProduct);
         dropTable();
-
     }
 }

@@ -1,21 +1,25 @@
 package com.shop_kiev.controler;
 
 import com.shop_kiev.model.Product;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Slf4j
 public class TableProducts {
+    private TableProducts() {
+    }
+
     //Creates a table in a database.
     public static void createTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.CREATE_TABLE)) {
             prStatement.executeUpdate();
-            System.out.println("Create Table!!!");
+            log.info("Create Table!!!");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
-
     }
 
     //Insert table
@@ -23,12 +27,11 @@ public class TableProducts {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.INSERT)) {
             prStatement.setString(1, product.getName());
             prStatement.setInt(2, product.getPrice());
-
             // execute insert SQL prepared statement
             prStatement.executeUpdate();
-            System.out.println("First product in table");
+            log.info("First product in table");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
@@ -38,12 +41,11 @@ public class TableProducts {
             prStatement.setString(1, newProduct.getName());
             prStatement.setInt(2, newProduct.getPrice());
             prStatement.setInt(3, oldProduct.getId());
-
             // execute update SQL prepared statement
             prStatement.executeUpdate();
-            System.out.println("Update");
+            log.info("Update");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
@@ -51,33 +53,29 @@ public class TableProducts {
     public static void deleteFromTable(Product product) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DELETE)) {
             prStatement.setString(1, product.getName());
-
             // execute delete SQL prepared statement
             prStatement.executeUpdate();
-            System.out.println("Delete");
+            log.info("Delete");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
     //Select records from table
     public static void selectFromTable() {
-        try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.SELECT)) {
-
+        try (final PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.SELECT);
+             final ResultSet rs = prStatement.executeQuery()) {
             // execute select SQL prepared statement
-            ResultSet rs = prStatement.executeQuery();
-
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
-
-                System.out.println("Id: " + id);
-                System.out.println("Name product: " + name);
-                System.out.println("Price: " + price);
+                log.info("Id: " + id);
+                log.info("Name product: " + name);
+                log.info("Price: " + price);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
@@ -86,9 +84,9 @@ public class TableProducts {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DROP)) {
             // execute delete SQL prepared statement
             prStatement.executeUpdate();
-            System.out.println("Drop table!!!");
+            log.info("Drop table!!!");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }

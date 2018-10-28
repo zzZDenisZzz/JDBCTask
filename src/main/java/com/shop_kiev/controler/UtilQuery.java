@@ -1,8 +1,7 @@
 package com.shop_kiev.controler;
 
 class UtilQuery {
-
-    public UtilQuery() {
+    private UtilQuery() {
     }
 
     static final String CREATE_TABLE = "CREATE TABLE PRODUCTS " +
