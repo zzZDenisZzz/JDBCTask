@@ -15,10 +15,12 @@ public class TableProducts {
     //Creates a table in a database.
     public static void createTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.CREATE_TABLE)) {
-            prStatement.executeUpdate();
-            log.info("Create Table!!!");
+            final int result = prStatement.executeUpdate();
+            if (result == 0) {
+                log.info("Created table");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Error, the table is not created: {}", e.getMessage());
         }
     }
 
@@ -28,10 +30,12 @@ public class TableProducts {
             prStatement.setString(1, product.getName());
             prStatement.setInt(2, product.getPrice());
             // execute insert SQL prepared statement
-            prStatement.executeUpdate();
-            log.info("First product in table");
+            final int result = prStatement.executeUpdate();
+            if (result > 0) {
+                log.info("First product in table");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Error inserting into table: {}", e.getMessage());
         }
     }
 
@@ -42,10 +46,12 @@ public class TableProducts {
             prStatement.setInt(2, newProduct.getPrice());
             prStatement.setInt(3, oldProduct.getId());
             // execute update SQL prepared statement
-            prStatement.executeUpdate();
-            log.info("Update");
+            final int result = prStatement.executeUpdate();
+            if (result > 0) {
+                log.info("Update");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Error update to table: {}", e.getMessage());
         }
     }
 
@@ -54,10 +60,12 @@ public class TableProducts {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DELETE)) {
             prStatement.setString(1, product.getName());
             // execute delete SQL prepared statement
-            prStatement.executeUpdate();
-            log.info("Delete");
+            final int result = prStatement.executeUpdate();
+            if (result > 0) {
+                log.info("Delete");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Error delete from table: {}", e.getMessage());
         }
     }
 
@@ -70,12 +78,10 @@ public class TableProducts {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
-                log.info("Id: " + id);
-                log.info("Name product: " + name);
-                log.info("Price: " + price);
+                log.info("Id: {}, Name product: {}, Price: {}", id, name, price);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Error select from table: {}", e.getMessage());
         }
     }
 
@@ -83,10 +89,12 @@ public class TableProducts {
     public static void dropTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DROP)) {
             // execute delete SQL prepared statement
-            prStatement.executeUpdate();
-            log.info("Drop table!!!");
+            final int result = prStatement.executeUpdate();
+            if (result == 0) {
+                log.info("Drop table");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error("Drop error: {}", e.getMessage());
         }
     }
 }

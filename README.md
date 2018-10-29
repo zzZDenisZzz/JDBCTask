@@ -1,4 +1,7 @@
 # JDBCTask
-DB H2
 
-CREATE, INSERT, UPDATE, DELETE, SELECT, DROP
+Web application implements basic CRUD functionality
+
+**Technologies**
+
+H2 in-memory database, Maven, Lombok, Slf4j.
