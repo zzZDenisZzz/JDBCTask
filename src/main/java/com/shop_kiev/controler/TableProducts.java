@@ -13,19 +13,21 @@ public class TableProducts {
     }
 
     //Creates a table in a database.
-    public static void createTable() {
+    public static int createTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.CREATE_TABLE)) {
             final int result = prStatement.executeUpdate();
             if (result == 0) {
                 log.info("Created table");
+                return 0;
             }
         } catch (SQLException e) {
             log.error("Error, the table is not created: {}", e.getMessage());
         }
+        return -1;
     }
 
     //Insert table
-    public static void insertIntoTable(Product product) {
+    public static boolean insertIntoTable(Product product) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.INSERT)) {
             prStatement.setString(1, product.getName());
             prStatement.setInt(2, product.getPrice());
@@ -33,14 +35,16 @@ public class TableProducts {
             final int result = prStatement.executeUpdate();
             if (result > 0) {
                 log.info("First product in table");
+                return true;
             }
         } catch (SQLException e) {
             log.error("Error inserting into table: {}", e.getMessage());
         }
+        return false;
     }
 
     //Update
-    public static void updateToTable(Product oldProduct, Product newProduct) {
+    public static boolean updateToTable(Product oldProduct, Product newProduct) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.UPDATE)) {
             prStatement.setString(1, newProduct.getName());
             prStatement.setInt(2, newProduct.getPrice());
@@ -49,24 +53,28 @@ public class TableProducts {
             final int result = prStatement.executeUpdate();
             if (result > 0) {
                 log.info("Update");
+                return true;
             }
         } catch (SQLException e) {
             log.error("Error update to table: {}", e.getMessage());
         }
+        return false;
     }
 
     //Delete record from table
-    public static void deleteFromTable(Product product) {
+    public static boolean deleteFromTable(Product product) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DELETE)) {
             prStatement.setString(1, product.getName());
             // execute delete SQL prepared statement
             final int result = prStatement.executeUpdate();
             if (result > 0) {
                 log.info("Delete");
+                return true;
             }
         } catch (SQLException e) {
             log.error("Error delete from table: {}", e.getMessage());
         }
+        return false;
     }
 
     //Select records from table
@@ -86,15 +94,17 @@ public class TableProducts {
     }
 
     //Drop from table
-    public static void dropTable() {
+    public static int dropTable() {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DROP)) {
             // execute delete SQL prepared statement
             final int result = prStatement.executeUpdate();
             if (result == 0) {
                 log.info("Drop table");
+                return 0;
             }
         } catch (SQLException e) {
             log.error("Drop error: {}", e.getMessage());
         }
+        return -1;
     }
 }

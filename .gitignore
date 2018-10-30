@@ -1,11 +1,9 @@
 # Compiled class file
-*.class
+.class
 
 # Log file
 *.log
 
-.idea
-jdbcTask.iml
 
 # BlueJ files
 *.ctxt
@@ -25,5 +23,6 @@ jdbcTask.iml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 src/main/resources/
-src/test/
-target/generated-sources/
+target/
+.idea
+*.iml
