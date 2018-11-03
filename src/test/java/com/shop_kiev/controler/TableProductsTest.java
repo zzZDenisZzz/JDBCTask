@@ -1,11 +1,9 @@
 package com.shop_kiev.controler;
 
 import com.shop_kiev.model.Product;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TableProductsTest {
@@ -25,7 +23,7 @@ public class TableProductsTest {
 
     @Test
     public void updateToTable() {
-        assertTrue(TableProducts.updateToTable(product,product2));
+        assertTrue(TableProducts.updateToTable(product, product2));
     }
 
     @Test
@@ -34,12 +32,8 @@ public class TableProductsTest {
     }
 
     @Test
-    public void selectFromTable() {
-    }
-
-    @Test
     public void dropTable() {
         int result = TableProducts.dropTable();
-        assertEquals(0,result);
+        assertEquals(0, result);
     }
 }
