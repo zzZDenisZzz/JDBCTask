@@ -4,4 +4,4 @@ Web application implements basic CRUD functionality
 
 **Technologies**
 
-H2 in-memory database, Maven, Lombok, Slf4j, jUnit4.
+H2 in-memory database, Maven, Lombok, Slf4j, jUnit4, Jstl, Servlet.
