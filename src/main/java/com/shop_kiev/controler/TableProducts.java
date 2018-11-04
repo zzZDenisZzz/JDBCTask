@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class TableProducts {
@@ -78,19 +80,23 @@ public class TableProducts {
     }
 
     //Select records from table
-    public static void selectFromTable() {
+    public static List<Product> selectFromTable() {
+        List<Product> products = new ArrayList<>();
         try (final PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.SELECT);
              final ResultSet rs = prStatement.executeQuery()) {
             // execute select SQL prepared statement
             while (rs.next()) {
+                Product product = new Product();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
+                products.add(product);
                 log.info("Id: {}, Name product: {}, Price: {}", id, name, price);
             }
         } catch (SQLException e) {
             log.error("Error select from table: {}", e.getMessage());
         }
+        return products;
     }
 
     //Drop from table
