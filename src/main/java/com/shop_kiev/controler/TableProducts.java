@@ -87,11 +87,12 @@ public class TableProducts {
             // execute select SQL prepared statement
             while (rs.next()) {
                 Product product = new Product();
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int price = rs.getInt("price");
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getInt("price"));
                 products.add(product);
-                log.info("Id: {}, Name product: {}, Price: {}", id, name, price);
+                log.info("Id: {}, Name product: {}, Price: {}", rs.getInt("id"),
+                        rs.getString("name"), rs.getInt("price"));
             }
         } catch (SQLException e) {
             log.error("Error select from table: {}", e.getMessage());

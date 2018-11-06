@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Shop {
     public static void main(String[] args) {
         Product product = new Product(1, "Milk", 10);
-        Product newProduct = new Product(1, "Coca-cola", 10);
+        Product newProduct = new Product(1, "Coca-cola", 15);
         TableProducts.createTable();
         TableProducts.insertIntoTable(product);
         TableProducts.updateToTable(product, newProduct);
