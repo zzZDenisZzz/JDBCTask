@@ -1,6 +1,6 @@
-package com.shop_kiev.servlets;
+package com.shop_kiev.controller;
 
-import com.shop_kiev.controler.TableProducts;
+import com.shop_kiev.dao.TableProducts;
 import com.shop_kiev.model.Product;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ public class ProductListServlet extends HttpServlet {
 
         req.setAttribute("products", products); // Will be available as ${products} in JSP
         try {
-            req.getRequestDispatcher("myPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/list.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error("Error: ", e.getMessage());
         }

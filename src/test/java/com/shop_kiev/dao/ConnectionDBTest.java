@@ -1,4 +1,4 @@
-package com.shop_kiev.controler;
+package com.shop_kiev.dao;
 
 import org.junit.Test;
 

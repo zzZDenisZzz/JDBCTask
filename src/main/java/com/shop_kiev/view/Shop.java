@@ -1,6 +1,6 @@
 package com.shop_kiev.view;
 
-import com.shop_kiev.controler.TableProducts;
+import com.shop_kiev.dao.TableProducts;
 import com.shop_kiev.model.Product;
 import com.shop_kiev.util.NumberUtil;
 import lombok.extern.slf4j.Slf4j;
