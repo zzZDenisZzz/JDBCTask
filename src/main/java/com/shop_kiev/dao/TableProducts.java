@@ -67,7 +67,7 @@ public class TableProducts {
     //Delete record from table
     public static boolean deleteFromTable(Product product) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.DELETE)) {
-            prStatement.setString(1, product.getName());
+            prStatement.setInt(1, product.getId());
             // execute delete SQL prepared statement
             final int result = prStatement.executeUpdate();
             if (result > 0) {

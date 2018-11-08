@@ -11,7 +11,7 @@ public final class UtilQuery {
             "PRIMARY KEY (id))";
     public static final String INSERT = "INSERT INTO PRODUCTS (name, price) VALUES (?, ?);";
     public static final String UPDATE = "UPDATE PRODUCTS SET name = ?, price = ? WHERE id = ?;";
-    public static final String DELETE = "DELETE FROM PRODUCTS WHERE name = ?;";
+    public static final String DELETE = "DELETE FROM PRODUCTS WHERE id = ?;";
     public static final String SELECT = "SELECT * FROM PRODUCTS;";
     public static final String DROP = "DROP TABLE PRODUCTS;";
 }
