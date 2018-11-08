@@ -37,7 +37,7 @@ public class TableProducts {
             // execute insert SQL prepared statement
             final int result = prStatement.executeUpdate();
             if (result > 0) {
-                log.info("First product in table");
+                log.info("Product in table");
                 return true;
             }
         } catch (SQLException e) {
