@@ -13,5 +13,6 @@ public final class UtilQuery {
     public static final String UPDATE = "UPDATE PRODUCTS SET name = ?, price = ? WHERE id = ?;";
     public static final String DELETE = "DELETE FROM PRODUCTS WHERE id = ?;";
     public static final String SELECT = "SELECT * FROM PRODUCTS;";
+    public static final String SELECT_ONE = "SELECT * FROM PRODUCTS WHERE id = ?;";
     public static final String DROP = "DROP TABLE PRODUCTS;";
 }

@@ -23,7 +23,7 @@ public class TableProductsTest {
 
     @Test
     public void updateToTable() {
-        assertTrue(TableProducts.updateToTable(product, product2));
+        assertEquals(0, TableProducts.updateToTable(product));
     }
 
     @Test

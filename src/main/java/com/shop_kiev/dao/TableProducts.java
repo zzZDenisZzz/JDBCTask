@@ -47,21 +47,18 @@ public class TableProducts {
     }
 
     //Update
-    public static boolean updateToTable(Product oldProduct, Product newProduct) {
+    public static int updateToTable(Product product) {
         try (PreparedStatement prStatement = ConnectionDB.getConnection().prepareStatement(UtilQuery.UPDATE)) {
-            prStatement.setString(1, newProduct.getName());
-            prStatement.setInt(2, newProduct.getPrice());
-            prStatement.setInt(3, oldProduct.getId());
+            prStatement.setString(1, product.getName());
+            prStatement.setInt(2, product.getPrice());
+            prStatement.setInt(3, product.getId());
             // execute update SQL prepared statement
-            final int result = prStatement.executeUpdate();
-            if (result > 0) {
-                log.info("Update");
-                return true;
-            }
+            log.info("Update");
+            return prStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("Error update to table: {}", e.getMessage());
         }
-        return false;
+        return 0;
     }
 
     //Delete record from table
@@ -70,7 +67,7 @@ public class TableProducts {
             prStatement.setInt(1, product.getId());
             // execute delete SQL prepared statement
             final int result = prStatement.executeUpdate();
-            if (result > 0) {
+            if (result == 0) {
                 log.info("Delete");
                 return true;
             }
@@ -92,13 +89,31 @@ public class TableProducts {
                 product.setName(rs.getString("name"));
                 product.setPrice(rs.getInt("price"));
                 products.add(product);
-                log.info("Id: {}, Name product: {}, Price: {}", rs.getInt("id"),
-                        rs.getString("name"), rs.getInt("price"));
+                log.info("select from table");
             }
         } catch (SQLException e) {
             log.error("Error select from table: {}", e.getMessage());
         }
         return products;
+    }
+
+    public static Product selectOne(final int id) {
+        try (PreparedStatement pr = ConnectionDB.getConnection().prepareStatement(UtilQuery.SELECT_ONE)) {
+            Product product = new Product();
+            pr.setInt(1, id);
+            try (ResultSet rs = pr.executeQuery()) {
+                while (rs.next()) {
+                    product.setId(rs.getInt("id"));
+                    product.setName(rs.getString("name"));
+                    product.setPrice(rs.getInt("price"));
+                }
+                log.info("Select one product");
+                return product;
+            }
+        } catch (SQLException e) {
+            log.error("Error Select one product: {}", e.getMessage());
+        }
+        return null;
     }
 
     //Drop from table
