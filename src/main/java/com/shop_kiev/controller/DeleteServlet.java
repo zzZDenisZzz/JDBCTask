@@ -13,15 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            req.setCharacterEncoding("UTF-8");
+            int id = Integer.parseInt(req.getParameter("id"));
             Product product = new Product(id);
             TableProducts.deleteFromTable(product);
-            response.sendRedirect("/list");
+            resp.sendRedirect("/list");
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("jsp/notfound.jsp").forward(request, response);
+                req.getRequestDispatcher("jsp/notfound.jsp").forward(req, resp);
             } catch (Exception ex) {
                 log.error("Not found");
             }

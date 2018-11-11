@@ -13,16 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/add")
 public class AddServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            String name = request.getParameter("name");
-            int price = Integer.parseInt(request.getParameter("price"));
+            req.setCharacterEncoding("UTF-8");
+            String name = req.getParameter("name");
+            int price = Integer.parseInt(req.getParameter("price"));
             Product product = new Product(name, price);
             TableProducts.insertIntoTable(product);
-            response.sendRedirect("/list");
+            resp.sendRedirect("/list");
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("jsp/add.jsp").forward(request, response);
+                req.getRequestDispatcher("jsp/add.jsp").forward(req, resp);
             } catch (Exception ex) {
                 log.error("Error: " + ex.getMessage());
             }
@@ -30,9 +31,10 @@ public class AddServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            request.getRequestDispatcher("jsp/add.jsp").forward(request, response);
+            req.setCharacterEncoding("UTF-8");
+            req.getRequestDispatcher("jsp/add.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error("Error:", e.getMessage());
         }

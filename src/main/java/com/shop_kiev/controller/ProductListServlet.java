@@ -15,10 +15,10 @@ import java.util.List;
 public class ProductListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        List<Product> products = TableProducts.selectFromTable();
-
-        req.setAttribute("products", products); // Will be available as ${products} in JSP
         try {
+            req.setCharacterEncoding("UTF-8");
+            List<Product> products = TableProducts.selectFromTable();
+            req.setAttribute("products", products); // Will be available as ${products} in JSP
             req.getRequestDispatcher("jsp/list.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error("Error: ", e.getMessage());
